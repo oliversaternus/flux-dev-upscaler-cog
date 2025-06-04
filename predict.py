@@ -74,7 +74,7 @@ class Predictor(BasePredictor):
             generator=generator,
         ).images[0]
 
-        output_path = f"/tmp/out-{i}.png"
+        output_path = f"/tmp/out-0.png"
         image.save(output_path)
 
         print(f"prediction took: {time.time() - predict_start:.2f}s")
