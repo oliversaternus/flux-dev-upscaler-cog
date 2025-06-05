@@ -3,6 +3,7 @@ import torch
 from dotenv import load_dotenv
 from diffusers import FluxControlNetModel
 from diffusers.pipelines import FluxControlNetPipeline
+from PIL import Image
 
 # Load environment variables from .env file
 load_dotenv()
