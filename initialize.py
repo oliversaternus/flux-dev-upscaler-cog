@@ -22,7 +22,7 @@ controlnet = FluxControlNetModel.from_pretrained(
 )
 
 print("Initializing FLUX-dev...")
-self.pipe = FluxControlNetPipeline.from_pretrained(
+pipe = FluxControlNetPipeline.from_pretrained(
     "black-forest-labs/FLUX.1-dev", 
     controlnet=controlnet,
     torch_dtype=torch.bfloat16,
