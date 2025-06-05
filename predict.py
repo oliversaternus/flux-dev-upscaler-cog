@@ -7,8 +7,7 @@ from cog import BasePredictor, Input, Path
 from diffusers import FluxControlNetModel
 from diffusers.pipelines import FluxControlNetPipeline
 
-CONTROLNET_PATH = "./checkpoints/flux_controlnet_upscaler"
-MODEL_PATH = "./checkpoints/flux_1_dev"
+CACHE_DIR = "./cache"
 
 class Predictor(BasePredictor):
 
@@ -19,12 +18,17 @@ class Predictor(BasePredictor):
         
         print("Initializing upscale controlnet...")
         controlnet = FluxControlNetModel.from_pretrained(
-            CONTROLNET_PATH, torch_dtype=torch.bfloat16
+            "jasperai/Flux.1-dev-Controlnet-Upscaler", 
+            torch_dtype=torch.bfloat16,
+            cache_dir=CACHE_DIR
         )
 
         print("Initializing FLUX-dev...")
         self.pipe = FluxControlNetPipeline.from_pretrained(
-            MODEL_PATH, controlnet=controlnet, torch_dtype=torch.bfloat16
+            "black-forest-labs/FLUX.1-dev", 
+            controlnet=controlnet,
+            torch_dtype=torch.bfloat16,
+            cache_dir=CACHE_DIR
         )
         
         self.pipe.to("cuda")
