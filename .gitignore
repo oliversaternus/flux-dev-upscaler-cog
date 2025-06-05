@@ -1,3 +1,4 @@
 checkpoints
 .cog
 __pycache__
+.env
