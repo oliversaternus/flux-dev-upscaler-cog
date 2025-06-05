@@ -6,6 +6,7 @@ import torch
 from cog import BasePredictor, Input, Path
 from diffusers import FluxControlNetModel
 from diffusers.pipelines import FluxControlNetPipeline
+from PIL import Image
 
 CACHE_DIR = "./cache"
 
@@ -38,7 +39,7 @@ class Predictor(BasePredictor):
     @torch.inference_mode()
     def predict(
         self,
-        image: Path = Input(
+        input_image: Path = Input(
             description="Input image to upscale",
             default=None,
         ),
@@ -61,7 +62,8 @@ class Predictor(BasePredictor):
         if seed is None:
             seed = int.from_bytes(os.urandom(2), "big")
         print(f"Using seed: {seed}")
-        
+
+        image = Image.open(input_image)
         w, h = image.size
         control_image = image.resize((w * upscale_factor, h * upscale_factor))
         
