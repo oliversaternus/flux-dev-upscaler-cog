@@ -43,7 +43,7 @@ class Predictor(BasePredictor):
             description="Input image to upscale",
             default=None,
         ),
-        upscale_factor: float = Input(
+        upscale_factor: int = Input(
             description="Upscale factor", ge=1, le=4, default=2
         ),
         controlnet_conditioning_scale: float = Input(
