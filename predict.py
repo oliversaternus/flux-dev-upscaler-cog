@@ -69,7 +69,7 @@ class Predictor(BasePredictor):
         
         generator = torch.Generator("cuda").manual_seed(seed)
         
-        image = self.pipe(
+        output = self.pipe(
             prompt="", 
             control_image=control_image,
             controlnet_conditioning_scale=controlnet_conditioning_scale,
@@ -78,10 +78,13 @@ class Predictor(BasePredictor):
             height=control_image.size[1],
             width=control_image.size[0],
             generator=generator,
-        ).images[0]
+        )
 
-        output_path = f"/tmp/out-0.png"
-        image.save(output_path)
+        output_paths = []
+        for i, image in enumerate(output.images):
+            output_path = f"./out-{i}.png"
+            image.save(output_path)
+            output_paths.append(Path(output_path))
 
         print(f"prediction took: {time.time() - predict_start:.2f}s")
-        return output_path
+        return output_paths
