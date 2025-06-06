@@ -24,7 +24,7 @@ build:
     - "protobuf==5.27.3"
     - "diffusers==0.32.0"
     - "python-dotenv==1.0.1"
-    - "pillow==10.4.0"
+    - "Pillow"
 
   # commands run after the environment is setup
   run:
